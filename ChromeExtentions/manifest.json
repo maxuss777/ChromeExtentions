@@ -3,7 +3,8 @@
   "description": "Ext description",
   "version": "1.0",
   "permissions": [
-    "activeTab"
+    "activeTab",
+    "storage"
   ],
   "browser_action": {
       "default_title": "Default title",
