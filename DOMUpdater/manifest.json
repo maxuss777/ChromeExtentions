@@ -1,5 +1,5 @@
 {
-  "name": "Test chrm ext",
+  "name": "Test chrm ext",  
   "description": "Ext description",
   "version": "1.0",
   "permissions": [
@@ -10,6 +10,7 @@
       "default_title": "Default title",
       "default_icon": "icon.png",
       "default_popup": "popup.html"
-  },
+  },  
+  "content_security_policy":"script-src 'self' https://apis.google.com; object-src 'self'",
   "manifest_version": 2
 }

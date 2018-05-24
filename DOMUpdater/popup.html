@@ -11,16 +11,18 @@
 
   <div class="bs-example" data-example-id="collapse-accordion">
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-      <div id="alert" class="alert hidden">        
+      <div id="alert" class="alert hidden">
       </div>
+      
+      <pre id="content"></pre>
 
       <div class="panel-body">
         <div class="input-group">
           <input id="new-site-url-input" type="text" class="form-control" placeholder="Add new page url">
           <input id="new-site-element-selector" type="text" class="form-control" placeholder="Path element">
           <input id="new-site-element-attributes" type="text" class="form-control" placeholder="Element attributes">
-          <input id="addSiteInput" type="submit" class="btn btn-success" value="Save" >
-          <input id="clearNewSiteInput" type="button" class="btn btn-danger" value="Cancel" >
+          <input id="addSiteInput" type="submit" class="btn btn-success" value="Save">
+          <input id="clearNewSiteInput" type="button" class="btn btn-danger" value="Cancel">
         </div>
       </div>
 
@@ -33,5 +35,7 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/popup.js"></script>
+<script src="js/gapi.js"></script>
+<script src="js/gsapi.js"></script>
 
 </html>
