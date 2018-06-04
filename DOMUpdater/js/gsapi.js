@@ -6,14 +6,12 @@
 var authorizeButton = document.getElementById('authorize-button');
 var signoutButton = document.getElementById('signout-button');
 
-$(document).ready(function() {
-    this.onload=function(){};
-    gapi.load('client:auth2', initClient);
-});
-$(document).on('readystatechange', function(){
-    if (this.readyState === 'complete') this.onload();
-}); 
+window.addEventListener("load",function(){this.onload=function(){};handleClientLoad();});
+window.addEventListener("readystatechange",function(){if (this.readyState === 'complete') this.onload();});
 
+function handleClientLoad() {
+    gapi.load('client:auth2', initClient);
+  }
 function initClient() {
     gapi.client.init({
         clientId: "904413149069-0960m5jecc5tnmecqvv97dlmjf8dlkdd.apps.googleusercontent.com",
