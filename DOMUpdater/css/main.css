@@ -40,3 +40,7 @@ body {
 .glyphicon {
   font-size: 20px;
 }
+
+.auth-buttons{
+  margin: 5px;
+}
