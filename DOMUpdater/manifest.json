@@ -1,18 +1,29 @@
 {
-  "name": "Test chrm ext",  
+  "name": "Test chrm ext",
   "description": "Ext description",
   "version": "1.0",
   "permissions": [
     "activeTab",
     "storage",
-    "identity",
-    "https://docs.google.com/spreadsheets/"
+    "identity"
   ],
   "browser_action": {
-      "default_title": "Default title",
-      "default_icon": "icon.png",
-      "default_popup": "index.html"
-  },  
-  "content_security_policy":"script-src 'self' https://apis.google.com; object-src 'self'",
-  "manifest_version": 2
+    "default_title": "Default title",
+    "default_icon": "icon.png",
+    "default_popup": "html/popup.html",
+    "scripts": [
+      "..//js/jquery.min.js",
+      "..//js/bootstrap.min.js",
+      "..//js/popup.js",
+      "..//js/gapi.js",
+      "..//js/gsapi.js"
+    ]
+  },
+  "manifest_version": 2,
+  "oauth2": {
+    "client_id": "904413149069-hdr9cblbf6al8n7i6tch91scj3t14i6i.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/spreadsheets"
+    ]
+  }
 }
