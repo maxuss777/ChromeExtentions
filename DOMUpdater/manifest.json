@@ -10,14 +10,7 @@
   "browser_action": {
     "default_title": "Default title",
     "default_icon": "icon.png",
-    "default_popup": "html/popup.html",
-    "scripts": [
-      "..//js/jquery.min.js",
-      "..//js/bootstrap.min.js",
-      "..//js/popup.js",
-      "..//js/gapi.js",
-      "..//js/gsapi.js"
-    ]
+    "default_popup": "html/popup.html"
   },
   "manifest_version": 2,
   "oauth2": {
@@ -25,5 +18,6 @@
     "scopes": [
       "https://www.googleapis.com/auth/spreadsheets"
     ]
-  }
+  },
+  "content_security_policy": "script-src 'self' https://apis.google.com/; object-src 'self'"
 }

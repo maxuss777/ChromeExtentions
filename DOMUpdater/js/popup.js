@@ -4,9 +4,14 @@ $("#addSiteInput").on("click", addNewSite);
 $("#clearNewSiteInput").on("click", clearNewSiteInput);
 $(document).ready(renderExistingSites);
 
-function changeIcon() {
-    var collapseOne = $("#collapseOne");
-    var span = $("#glyphicon");
+window.addEventListener("load", function () { this.onload = function () { }; handleClientLoad(); });
+window.addEventListener("readystatechange", function () { if (this.readyState === 'complete') this.onload(); });
+var authorizeButton = document.getElementById('authorize-button');
+var signoutButton = document.getElementById('signout-button');
+
+function changeIcon(event) {
+    var collapseOne = $("#collapse-"+event.target.id.split('-')[1]);
+    var span = $("#"+event.target.id);
     if (collapseOne.attr("aria-expanded") === "true") {
         span.removeClass("glyphicon-minus");
         span.addClass("glyphicon-plus");
@@ -93,13 +98,14 @@ function renderSiteConfigurations(key) {
 }
 
 function renderConfiguration(key, configuration) {
-    console.log(key +' : '+configuration);
     $('#accordion > div:nth-child(3)').append('<div class="panel-heading" role="tab" id="heading-'+key+'"><h4 class="panel-title">' + configuration.url +
-        '<a target="_blank" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-' + configuration.url + '" aria-expanded="false"aria-controls="collapse-' + key + '" ' +
-        ' class="collapsed"><span id="glyphicon" class="glyphicon glyphicon-plus"></span></a></h4></div>');
+        '<a target="_blank" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-' + key + '" aria-expanded="false"aria-controls="collapse-' + key + '" ' +
+        ' class="collapsed"><span id="glyphicon-'+key+'" class="glyphicon-'+key+' glyphicon-plus"></span></a></h4></div>');
     $('#accordion > div:nth-child(3)').append('<div id="collapse-' + key + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading'+key+'" aria-expanded="false"><div class="panel-body"><div class="input-group">' +
         '<input id="item-path-input" type="text" value="' + configuration.selector + '" class="form-control" placeholder="item path" disabled><input id="attributes-input" type="text" value="' + configuration.attributes + '" class="form-control" placeholder="attributes" disabled>' +
         '<div id="site-actions" class="btn-group" data-toggle="buttons"><label id="doNothingOption" class="btn btn-primary active"><input type="radio" name="options" autocomplete="off"> Do nothing</label>' +
         '<label id="deleteOption" class="btn btn-primary"><input type="radio" name="options" autocomplete="off"> Delete</label><label id="changeOption" class="btn btn-primary">' +
         '<input type="radio" name="options" autocomplete="off"> Change</label></div></div></div></div>');
+
+    $("#glyphicon-"+key).on("click", changeIcon);
 }

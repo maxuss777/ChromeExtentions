@@ -1,21 +1,11 @@
-// var CLIENT_ID = '904413149069-0960m5jecc5tnmecqvv97dlmjf8dlkdd.apps.googleusercontent.com';
-// var API_KEY = 'AIzaSyDw9OUdG0-viGv90RBBt8AF0-bAcUjHXYs';
-// var DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
-// var SCOPES = "https://www.googleapis.com/auth/spreadsheets.readonly";
-
-var authorizeButton = document.getElementById('authorize-button');
-var signoutButton = document.getElementById('signout-button');
-
-window.addEventListener("load",function(){this.onload=function(){};handleClientLoad();});
-window.addEventListener("readystatechange",function(){if (this.readyState === 'complete') this.onload();});
 
 function handleClientLoad() {
     gapi.load('client:auth2', initClient);
-  }
+}
 function initClient() {
     gapi.client.init({
-        clientId: "904413149069-0960m5jecc5tnmecqvv97dlmjf8dlkdd.apps.googleusercontent.com",
-        apiKey : 'AIzaSyDw9OUdG0-viGv90RBBt8AF0-bAcUjHXYs',
+        clientId: "904413149069-hdr9cblbf6al8n7i6tch91scj3t14i6i.apps.googleusercontent.com",
+        //apiKey: 'AIzaSyDw9OUdG0-viGv90RBBt8AF0-bAcUjHXYs',
         discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
         scope: "https://www.googleapis.com/auth/spreadsheets.readonly",
         propt: 'none',
