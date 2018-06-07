@@ -1,5 +1,3 @@
-$("#glyphicon").on("click", changeIcon);
-$("#site-actions").on("click", applyOption);
 $("#addSiteInput").on("click", addNewSite);
 $("#clearNewSiteInput").on("click", clearNewSiteInput);
 $(document).ready(renderExistingSites);
@@ -10,9 +8,9 @@ var authorizeButton = document.getElementById('authorize-button');
 var signoutButton = document.getElementById('signout-button');
 
 function changeIcon(event) {
-    var collapseOne = $("#collapse-"+event.target.id.split('-')[1]);
+    var collapse = $("#collapse-"+event.target.id.split('-')[1]);
     var span = $("#"+event.target.id);
-    if (collapseOne.attr("aria-expanded") === "true") {
+    if (collapse.attr("aria-expanded") === "true") {
         span.removeClass("glyphicon-minus");
         span.addClass("glyphicon-plus");
     }
@@ -23,18 +21,19 @@ function changeIcon(event) {
 }
 
 function applyOption(event) {
+    var key = event.delegateTarget.id.split('-')[2];
     switch (event.target.id) {
         case "deleteOption":
-            $("#item-path-input").prop("disabled", false);
-            $("#attributes-input").prop("disabled", true);
+            $("#item-path-input-"+key).prop("disabled", false);
+            $("#attributes-input-"+key).prop("disabled", true);
             break;
         case "doNothingOption":
-            $("#item-path-input").prop("disabled", true);
-            $("#attributes-input").prop("disabled", true);
+            $("#item-path-input-"+key).prop("disabled", true);
+            $("#attributes-input-"+key).prop("disabled", true);
             break;
         default:
-            $("#item-path-input").prop("disabled", false);
-            $("#attributes-input").prop("disabled", false);
+            $("#item-path-input-"+key).prop("disabled", false);
+            $("#attributes-input-"+key).prop("disabled", false);
             break;
     }
 }
@@ -45,12 +44,12 @@ function addNewSite() {
     var newSiteElementSelector = $('#new-site-element-selector').val();
     var newSiteElementAttributes = $('#new-site-element-attributes').val();
 
-    if (!newSiteUrl && !newSiteElementSelector && !newSiteElementAttributes) {
+    if (!newSiteUrl || !newSiteElementSelector || !newSiteElementAttributes) {
         showMessage('Error: No value specified', false);
         return;
     }
-    var configurations =[];
-    configurations.push({ "url" : newSiteUrl, "selector": newSiteElementSelector, "attributes": newSiteElementAttributes });
+    
+    var configurations = { "url" : newSiteUrl, "selector": newSiteElementSelector, "attributes": newSiteElementAttributes };
     var x = Math.floor((Math.random() * 10000) + 1);
 
     chrome.storage.local.set({ [x]: configurations }, function () {
@@ -60,7 +59,9 @@ function addNewSite() {
 }
 
 function clearNewSiteInput() {
-    $('#new-site-path-input').val('');
+    $('#new-site-url-input').val('');
+    $('#new-site-element-selector').val('');
+    $('#new-site-element-attributes').val('');
 }
 
 function showMessage(message, isSuccess) {
@@ -102,10 +103,11 @@ function renderConfiguration(key, configuration) {
         '<a target="_blank" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse-' + key + '" aria-expanded="false"aria-controls="collapse-' + key + '" ' +
         ' class="collapsed"><span id="glyphicon-'+key+'" class="glyphicon-'+key+' glyphicon-plus"></span></a></h4></div>');
     $('#accordion > div:nth-child(3)').append('<div id="collapse-' + key + '" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading'+key+'" aria-expanded="false"><div class="panel-body"><div class="input-group">' +
-        '<input id="item-path-input" type="text" value="' + configuration.selector + '" class="form-control" placeholder="item path" disabled><input id="attributes-input" type="text" value="' + configuration.attributes + '" class="form-control" placeholder="attributes" disabled>' +
-        '<div id="site-actions" class="btn-group" data-toggle="buttons"><label id="doNothingOption" class="btn btn-primary active"><input type="radio" name="options" autocomplete="off"> Do nothing</label>' +
+        '<input id="item-path-input-'+key+'" type="text" value="' + configuration.selector + '" class="form-control" placeholder="item path" disabled><input id="attributes-input-'+key+'" type="text" value="' + configuration.attributes + '" class="form-control" placeholder="attributes" disabled>' +
+        '<div id="site-actions-'+key+'" class="btn-group" data-toggle="buttons"><label id="doNothingOption" class="btn btn-primary active"><input type="radio" name="options" autocomplete="off"> Do nothing</label>' +
         '<label id="deleteOption" class="btn btn-primary"><input type="radio" name="options" autocomplete="off"> Delete</label><label id="changeOption" class="btn btn-primary">' +
         '<input type="radio" name="options" autocomplete="off"> Change</label></div></div></div></div>');
 
     $("#glyphicon-"+key).on("click", changeIcon);
+    $("#site-actions-"+key).on("click", applyOption);
 }
