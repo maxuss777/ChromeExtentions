@@ -1,22 +1,34 @@
+var authorizeButton = document.getElementById('authorize-button');
+var signoutButton = document.getElementById('signout-button');
 
 function handleClientLoad() {
-    gapi.load('client:auth2', initClient);
+    gapi.load('client:auth2',
+        {
+            callback: function () { 
+                initClient(); 
+            },
+            onerror: function () {
+                alert('failed');
+            }
+        });
 }
 function initClient() {
+    console.log('initClient');
     gapi.client.init({
-        clientId: "904413149069-hdr9cblbf6al8n7i6tch91scj3t14i6i.apps.googleusercontent.com",
-        //apiKey: 'AIzaSyDw9OUdG0-viGv90RBBt8AF0-bAcUjHXYs',
+        clientId: "414980204301-b2fa07vhlngpa77l6tkteet9cnk3hpel.apps.googleusercontent.com",
+        apiKey: 'AIzaSyA82IkzNT71-23h2cf97gZGRz5COcd5VZw',
         discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
-        scope: "https://www.googleapis.com/auth/spreadsheets.readonly",
-        propt: 'none',
-
+        scope: "https://www.googleapis.com/auth/spreadsheets.readonly"       
     }).then(function () {
         gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
 
         updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
         authorizeButton.onclick = handleAuthClick;
         signoutButton.onclick = handleSignoutClick;
-    });
+    },
+    function(error) {
+        console.log(error);
+      });
 }
 
 function updateSigninStatus(isSignedIn) {
@@ -46,7 +58,7 @@ function appendPre(message) {
 
 function listMajors() {
     gapi.client.sheets.spreadsheets.values.get({
-        spreadsheetId: '1MLsluD-wfEruLrKL_LpfgcCvWKZG9liDXqPjcW5uCJQ',
+        spreadsheetId: '17Z-7_MooBGokx_2e9p39wgQugOJbFmGFDoprEIO7W3o',
         range: 'A2:C',
     }).then(function (response) {
         var range = response.result;

@@ -1,11 +1,11 @@
 $("#addSiteInput").on("click", addNewSite);
 $("#clearNewSiteInput").on("click", clearNewSiteInput);
 $(document).ready(renderExistingSites);
+$(window).on("load", function () { return handleClientLoad(); });
 
-window.addEventListener("load", function () { this.onload = function () { }; handleClientLoad(); });
-window.addEventListener("readystatechange", function () { if (this.readyState === 'complete') this.onload(); });
-var authorizeButton = document.getElementById('authorize-button');
-var signoutButton = document.getElementById('signout-button');
+//window.addEventListener("load", function () { return handleClientLoad(); });
+//window.addEventListener("readystatechange", function () { if (this.readyState === 'complete') return this.onload(); });
+
 
 function changeIcon(event) {
     var collapse = $("#collapse-"+event.target.id.split('-')[1]);
